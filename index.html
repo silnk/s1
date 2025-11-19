@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>भारत के किसी भी राज्य में पुलिस शिकायत पत्र | Police Complaint Anywhere in India</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', 'Noto Sans Devanagari', sans-serif; }
+        body { background: #f0f2f5; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 20px auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #c0392b; }
+        h1 { color: #c0392b; font-size: 28px; }
+        .subtitle { color: #555; font-size: 17px; }
+        .form-section { background: #f8f9fa; padding: 20px; margin-bottom: 25px; border-radius: 8px; border-left: 5px solid #2980b9; }
+        h2 { color: #2c3e50; margin-bottom: 15px; font-size: 21px; }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 6px; font-weight: bold; color: #2c3e50; }
+        input, select, textarea { width: 100%; padding: 11px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        textarea { height: 110px; resize: vertical; }
+        .row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .col { flex: 1; min-width: 250px; }
+        .button-group { text-align: center; margin: 40px 0; }
+        button { padding: 14px 30px; margin: 0 10px; border: none; border-radius: 6px; font-size: 17px; cursor: pointer; color: #fff; }
+        #generateBtn { background: #27ae60; }
+        #generateBtn:hover { background: #219a52; }
+        #printBtn { background: #2980b9; }
+        #printBtn:hover { background: #1f6391; }
+        #resetBtn { background: #c0392b; }
+        #resetBtn:hover { background: #a93226; }
+        .preview-section { border: 2px dashed #3498db; padding: 25px; background: #fdfdfd; border-radius: 10px; margin-top: 40px; display: none; }
+        .preview-content { line-height: 1.9; font-size: 16px; }
+        @media print {
+            body * { background: white; }
+            .container, .preview-section { box-shadow: none; border: none; }
+            .button-group, .form-section, header h1 + .subtitle { display: none; }
+            .preview-section { display: block !important; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>पुलिस शिकायत पत्र</h1>
+        <p class="subtitle">Online Police Complaint Letter Generator – पूरे भारत के लिए</p>
+    </header>
+
+    <form id="complaintForm">
+        <!-- === राज्य, जिला, शहर, पिनकोड, इलाका === -->
+        <div class="form-section">
+            <h2>स्थान का चयन करें (पुलिस थाना अपने आप भरेगा)</h2>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="state">राज्य *</label>
+                        <select id="state" required></select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="district">जिला *</label>
+                        <select id="district" required></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="city">शहर / कस्बा *</label>
+                        <input type="text" id="city" list="cityList" placeholder="शहर टाइप करें या चुनें" required>
+                        <datalist id="cityList"></datalist>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="pincode">पिनकोड</label>
+                        <input type="text" id="pincode" maxlength="6" placeholder="6 अंकों का पिनकोड">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="locality">इलाका / मोहल्ला / कॉलोनी का नाम *</label>
+                <input type="text" id="locality" placeholder="जैसे: सिविल लाइन्स, न्यू कॉलोनी, गांधी नगर" required>
+            </div>
+            <div class="form-group">
+                <label for="policeStation">पुलिस थाना (स्वचालित या मैन्युअल लिखें)</label>
+                <input type="text" id="policeStation" placeholder="ज्यादातर अपने आप भर जाएगा, जरूरत हो तो बदलें">
+            </div>
+        </div>
+
+        <!-- === शिकायतकर्ता का विवरण === -->
+        <div class="form-section">
+            <h2>शिकायतकर्ता का विवरण</h2>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="complainantName">नाम *</label>
+                        <input type="text" id="complainantName" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="fatherHusbandName">पिता/पति का नाम *</label>
+                        <input type="text" id="fatherHusbandName" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="age">उम्र *</label>
+                        <input type="number" id="age" min="1" max="120" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="mobile">मोबाइल नंबर *</label>
+                        <input type="tel" id="mobile" maxlength="10" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">पूरा पता (पिनकोड सहित) *</label>
+                <textarea id="address" required placeholder="घर नंबर, गली, इलाका, शहर, जिला, राज्य, पिनकोड"></textarea>
+            </div>
+        </div>
+
+        <!-- === शिकायत का विवरण === -->
+        <div class="form-section">
+            <h2>घटना / अपराध का विवरण</h2>
+            <div class="form-group">
+                <label for="incidentType">अपराध/घटना का प्रकार *</label>
+                <select id="incidentType" required>
+                    <option value="">-- चुनें --</option>
+                    <option value="चोरी">चोरी (Theft)</option>
+                    <option value="लूट">लूट / डकैती</option>
+                    <option value="छिनैती">छिनतई (Snatching)</option>
+                    <option value="मारपीट">मारपीट / हमला</option>
+                    <option value="उत्पीड़न">उत्पीड़न / छेड़खानी</option>
+                    <option value="धोखाधड़ी">धोखाधड़ी / साइबर फ्रॉड</option>
+                    <option value="घरेलू हिंसा">घरेलू हिंसा</option>
+                    <option value="संदिग्ध गतिविधि">संदिग्ध व्यक्ति / गतिविधि</option>
+                    <option value="शोर शराबा">शोर-शराबा / उपद्रव</option>
+                    <option value="अन्य">अन्य (नीचे लिखें)</option>
+                </select>
+            </div>
+            <div class="form-group" id="otherIncidentDiv" style="display:none;">
+                <label for="otherIncidentType">अन्य अपराध का नाम लिखें</label>
+                <input type="text" id="otherIncidentType">
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="incidentLocation">घटना का स्थान *</label>
+                        <input type="text" id="incidentLocation" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="incidentDate">घटना की तारीख *</label>
+                        <input type="date" id="incidentDate" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="incidentTime">घटना का समय (लगभग)</label>
+                        <input type="time" id="incidentTime">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="incidentDetails">घटना का पूरा विवरण *</label>
+                <textarea id="incidentDetails" required placeholder="जितना हो सके विस्तार से लिखें – क्या हुआ, कौन शामिल था, नुकसान आदि"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>सबूत / गवाह (वैकल्पिक)</label>
+                <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:8px;">
+                    <label><input type="checkbox" id="evidenceCCTV"> सीसीटीवी फुटेज</label>
+                    <label><input type="checkbox" id="evidenceWitness"> गवाह हैं</label>
+                    <label><input type="checkbox" id="evidencePhoto"> फोटो/वीडियो</label>
+                    <label><input type="checkbox" id="evidenceOther"> अन्य</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="witnessDetails">गवाहों / सबूत का विवरण (यदि हो तो)</label>
+                <textarea id="witnessDetails" placeholder="गवाहों के नाम, मोबाइल, या सबूत का विवरण"></textarea>
+            </div>
+        </div>
+
+        <!-- === निवेदन === -->
+        <div class="form-section">
+            <h2>आपसे निवेदन</h2>
+            <p><label><input type="checkbox" id="includeStandardText" checked> मानक पाठ शामिल करें (डर का माहौल, महिलाएँ-बच्चे असुरक्षित आदि)</label></p>
+            <div class="form-group">
+                <label for="customRequestText">अपना अतिरिक्त निवेदन (वैकल्पिक)</label>
+                <textarea id="customRequestText" placeholder="कोई खास माँग हो तो यहाँ लिखें"></textarea>
+            </div>
+            <p><strong>निम्न में से चुनें (डिफ़ॉल्ट सभी चुने हुए हैं):</strong></p>
+            <div style="margin:15px 0;">
+                <label><input type="checkbox" id="request1" checked> दोषियों के खिलाफ तुरंत कानूनी कार्रवाई करें</label><br><br>
+                <label><input type="checkbox" id="request2" checked> इलाके में पुलिस गश्त बढ़ाई जाए</label><br><br>
+                <label><input type="checkbox" id="request3" checked> हमें सुरक्षा और न्याय प्रदान करें</label>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button type="button" id="generateBtn">शिकायत पत्र बनाएँ</button>
+            <button type="button" id="printBtn">प्रिंट / PDF सेव करें</button>
+            <button type="reset" id="resetBtn">सब रिसेट करें</button>
+        </div>
+    </form>
+
+    <!-- Preview -->
+    <div class="preview-section" id="previewSection">
+        <div style="text-align:center;margin-bottom:30px;">
+            <h2>पुलिस शिकायत पत्र – पूर्वावलोकन</h2>
+        </div>
+        <div class="preview-content" id="previewContent"></div>
+        <div style="margin-top:50px;text-align:right;">
+            <p>स्थान: <span id="previewPlace"></span></p>
+            <p>दिनांक: <span id="previewDate"></span></p>
+            <br><br>
+            <p>भवदीय / सादर,</p>
+            <p><strong>हस्ताक्षर: _____________________</strong></p>
+            <p>नाम: <span id="previewName"></span></p>
+            <p>मोबाइल: <span id="previewMobile"></span></p>
+        </div>
+    </div>
+</div>
+
+<!-- भारत के सभी राज्यों और जिलों का JSON डेटा (संक्षिप्त) -->
+<script>
+// छोटा लेकिन काम करने वाला डेटा (पूरा डेटा बहुत बड़ा हो जाता इसलिए मुख्य राज्यों के कुछ जिले दिए हैं)
+// आप चाहें तो पूरा डेटा https://github.com/sab99r/India-States-Districts-JSON से ले सकते हैं
+const indiaData = {
+    "उत्तर प्रदेश": ["आगरा","अलीगढ़","प्रयागराज","लखनऊ","कानपुर","वाराणसी","गोरखपुर","मेर
